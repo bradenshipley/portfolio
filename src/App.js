@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './Components/Navbar/Navbar'
+import Landing from './Components/Landing/Landing'
+import AboutMe from './Components/AboutMe/AboutMe'
+import Skills from './Components/Skills/Skills'
+import Projects from './Components/Projects/Projects'
+import Contact from './Components/Contact/Contact'
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.AboutMe = React.createRef()
+    this.Skills = React.createRef()
+    this.Projects = React.createRef()
+    this.Contact = React.createRef()
+    this.handleScroll = this.handleScroll.bind(this)
+  }
+  handleScroll(param) {
+    console.log(param)
+    console.log(typeof Param)
+    // window.scrollY(window.innerHeight)
+    this.param.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Navbar handleScroll={this.handleScroll} />
+        <Landing />
+        <> <AboutMe ref={this.AboutMe} /></>
+        <> <Skills ref={this.Skills} /></>
+        <> <Projects ref={this.Projects} /></>
+        <> <Contact ref={this.Contact} /></>
       </div>
     );
   }
