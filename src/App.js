@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Navbar from './Components/Navbar/Navbar'
+// import scrollToComponent from 'react-scroll-to-component'
+
 import Landing from './Components/Landing/Landing'
 import AboutMe from './Components/AboutMe/AboutMe'
 import Skills from './Components/Skills/Skills'
@@ -10,27 +11,49 @@ import Contact from './Components/Contact/Contact'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.AboutMe = React.createRef()
-    this.Skills = React.createRef()
-    this.Projects = React.createRef()
-    this.Contact = React.createRef()
-    this.handleScroll = this.handleScroll.bind(this)
+    this.state = {
+      isTop: true,
+      links: ['About Me', 'Skills', 'Projects', 'Contact']
+    }
+    // this.handleScroll = this.handleScroll.bind(this)
   }
-  handleScroll(param) {
-    console.log(param)
-    console.log(typeof Param)
-    // window.scrollY(window.innerHeight)
-    this.param.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  componentDidMount() {
+    document.addEventListener('scroll', () => {
+      const isTop = window.scrollY < 100;
+      if (isTop !== this.state.isTop) {
+        this.setState({ isTop })
+      }
+    })
+  }
+  handleScroll = (el) => {
+    if (el == 'About Me') {
+      let selection = document.getElementById("aboutme")
+      selection.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
+    } else {
+      let lowercase = el.toLowerCase()
+      let selection = document.getElementById(lowercase)
+      selection.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
+    }
   }
   render() {
+    const links = this.state.links
+      .map((el, i) => {
+        return (
+          <div className="link" key={i} onClick={() => this.handleScroll(el)}>
+            {el}
+          </div>
+        )
+      })
     return (
       <div className="App">
-        <Navbar handleScroll={this.handleScroll} />
+        <div className={this.state.isTop ? 'Navbar' : 'Navbar2'} >
+          {links}
+        </div>
         <Landing />
-        <> <AboutMe ref={this.AboutMe} /></>
-        <> <Skills ref={this.Skills} /></>
-        <> <Projects ref={this.Projects} /></>
-        <> <Contact ref={this.Contact} /></>
+        <div id='aboutme'> <AboutMe /></div>
+        <div id='skills' > <Skills /></div>
+        <div id='projects'> <Projects /></div>
+        <div id='contact'> <Contact /></div>
       </div>
     );
   }

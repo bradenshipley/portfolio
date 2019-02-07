@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import './Skills.css'
-const Skills = props => {
-  return (
-    <div className="Skills">
-      This is the Skills Part
+class Skills extends Component {
+  render() {
+    return (
+      <div className="Skills">
+        This is the Skills Part
     </div>)
+  }
 }
 export default Skills

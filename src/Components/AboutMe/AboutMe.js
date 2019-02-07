@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import './AboutMe.css'
-const AboutMe = props => {
-  return (
-    <div className='AboutMe'>
-      This is the AboutMe Part
+class AboutMe extends Component {
+  render() {
+    return (
+      <div className='AboutMe'>
+        This is the AboutMe Part
       </div>
-  )
+    )
+  }
 }
 export default AboutMe
